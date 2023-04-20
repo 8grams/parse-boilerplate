@@ -1,5 +1,8 @@
 # Backend Application using Parse Server - Boilerplate
 
+## What is Parse Server?
+Checkout our blog post: https://8grams.tech/blog/low-code-champion-parse-platform/
+
 ## Specification
 
 - Backend Server: [Parse Server](https://parseplatform.org/)
