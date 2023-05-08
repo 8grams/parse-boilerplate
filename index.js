@@ -7,19 +7,6 @@ const cors = require('cors');
 const ParseServer = require('parse-server').ParseServer;
 const ParseDashboard = require('parse-dashboard');
 const RedisCacheAdapter = require('parse-server').RedisCacheAdapter;
-const { SES, SendEmailCommand } = require('@aws-sdk/client-ses');
-const { ApiPayloadConverter } = require('parse-server-api-mail-adapter');
-
-const { fromEnv } = require('@aws-sdk/credential-providers');
-
-const credentialProvider = fromEnv();
-const credentials = credentialProvider();
-
-const sesClient = new SES({
-    credentials,
-    region: process.env.AWS_DEFAULT_REGION,
-    apiVersion: '2010-12-01'
-});
 
 const app = express();
 
@@ -59,11 +46,6 @@ const api = new ParseServer({
                     textPath: './email/password_reset_email.txt',
                     htmlPath: './email/password_reset_email.html'
                 },
-            },
-            apiCallback: async ({ payload }) => {
-                const awsSesPayload = ApiPayloadConverter.awsSes(payload);
-                const command = new SendEmailCommand(awsSesPayload);
-                await sesClient.send(command);
             },
         }   
     },
