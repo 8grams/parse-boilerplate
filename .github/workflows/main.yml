@@ -22,5 +22,5 @@ jobs:
       - name: Build & Push Docker
         uses: 8grams/github-buildpacks-action@v0.0.2
         with:
-          app_name: "docker.io/8grams/parse-boilerplate"
+          app_name: "8grams/parse-boilerplate"
           tag_name: "latest"
