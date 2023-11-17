@@ -19,10 +19,20 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
       
-      - name: Build & Push Docker
-        uses: 8grams/github-buildpacks-action@v0.0.6
+      - name: Build Image
+        id: build-image
+        uses: 8grams/github-buildpacks-action@v0.0.7
         with:
-          app_name: "8grams/parse-boilerplate"
+          app_name: "docker.io/8grams/parse-boilerplate"
           tag_name: "latest"
           docker_username: ${{ secrets.DOCKER_USERNAME }}
           docker_password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Push Registry
+        id: push-to-registry
+        uses: redhat-actions/push-to-registry@v2
+        with:
+          image: ${{ steps.build-image.inputs.app_name }}
+          tags: ${{ steps.build-image.inputs.tag_name }}
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
