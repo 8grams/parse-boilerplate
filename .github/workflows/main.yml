@@ -32,7 +32,7 @@ jobs:
         id: push-to-registry
         uses: redhat-actions/push-to-registry@v2
         with:
-          image: ${{ steps.build-image.inputs.app_name }}
-          tags: ${{ steps.build-image.inputs.tag_name }}
+          image: "docker.io/8grams/parse-boilerplate"
+          tags: "latest"
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
